@@ -19,7 +19,7 @@ proxyPort = int(args.port)
 # Create a server socket, bind it to a port and start listening
 try:
   # Create a server socket
-  socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
   print ('Created socket')
 except:
   print ('Failed to create socket')
@@ -28,6 +28,7 @@ except:
 try:
   # Bind the the server socket to a host and port
   # ~~~~ INSERT CODE ~~~~
+  sock.bind((proxyHost, proxyPort))
   # ~~~~ END CODE INSERT ~~~~
   print ('Port is bound')
 except:
@@ -37,6 +38,7 @@ except:
 try:
   # Listen on the server socket
   # ~~~~ INSERT CODE ~~~~
+  sock.listen(1)
   # ~~~~ END CODE INSERT ~~~~
   print ('Listening to socket')
 except:
@@ -51,6 +53,7 @@ while True:
   # Accept connection from client and store in the clientSocket
   try:
     # ~~~~ INSERT CODE ~~~~
+    clientSocket, address = sock.accept()
     # ~~~~ END CODE INSERT ~~~~
     print ('Received a connection')
   except:
