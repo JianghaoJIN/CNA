@@ -19,7 +19,7 @@ proxyPort = int(args.port)
 # Create a server socket, bind it to a port and start listening
 try:
   # Create a server socket
-  sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   print ('Created socket')
 except:
   print ('Failed to create socket')
@@ -38,7 +38,7 @@ except:
 try:
   # Listen on the server socket
   # ~~~~ INSERT CODE ~~~~
-  sock.listen(1)
+  sock.listen(10)
   # ~~~~ END CODE INSERT ~~~~
   print ('Listening to socket')
 except:
@@ -149,7 +149,7 @@ while True:
       # originServerRequestHeader is the second line in the request
       # ~~~~ INSERT CODE ~~~~
       originServerRequest = method + ' ' + resource + ' ' + version
-      originServerRequestHeader = hostname
+      originServerRequestHeader = 'Host: ' + hostname
       # ~~~~ END CODE INSERT ~~~~
 
       # Construct the request to send to the origin server
@@ -170,11 +170,12 @@ while True:
 
       # Get the response from the origin server
       # ~~~~ INSERT CODE ~~~~
-      response = ''
+      response = b''
       while True:
         data = originServerSocket.recv(BUFFER_SIZE)
         if not data:
           break
+        response += data
       # ~~~~ END CODE INSERT ~~~~
 
       # Send the response to the client
