@@ -135,6 +135,7 @@ while True:
     try:
       # Get the IP address for a hostname
       address = socket.gethostbyname(hostname)
+      print("address: ", address)
       # Connect to the origin server
       # ~~~~ INSERT CODE ~~~~
       originServerSocket.connect((address, 80))
@@ -176,6 +177,7 @@ while True:
         if not data:
           break
         response += data
+      print("recieve done")
       # ~~~~ END CODE INSERT ~~~~
 
       # Send the response to the client
